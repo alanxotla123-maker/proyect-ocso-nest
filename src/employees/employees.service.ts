@@ -31,7 +31,7 @@ phoneNumber: "342342342"
   }
 
   findOne(id: string) {
-    const employee =this.employees.filter((employee ) => employee.id === id)[0];
+    const employee =this.employees.filter((employee) => employee.id === id)[0];
     if(!employee )throw new NotFoundException();
     return employee
   }

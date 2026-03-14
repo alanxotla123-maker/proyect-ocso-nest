@@ -26,7 +26,8 @@ export class EmployeesController {
   }
 
   @Patch(':id')
-  update(@Param('id',new ParseUUIDPipe({version: '4'})) id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
+  update(@Param('id',new ParseUUIDPipe({version: '4'})) id: string,
+   @Body() updateEmployeeDto: UpdateEmployeeDto) {
     return this.employeesService.update(id, updateEmployeeDto);
   }
 

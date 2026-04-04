@@ -4,16 +4,16 @@ export class CreateProductDto {
     @IsString()
     @IsUUID("4")
     @IsOptional()
-    id: string;
+    id!: string;
     @IsString()
     @MaxLength(40)
-    productName: string;
+    productName!: string;
     @IsNumber()
-    price: number;
+    price!: number;
     @IsInt()
-    countSeal: number;
+    countSeal!: number;
     @IsString()
     @IsUUID()
     @IsOptional()
-    provider: string;
+    provider!: string;
 }

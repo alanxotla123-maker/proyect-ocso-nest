@@ -4,14 +4,14 @@ import { isNull } from "util";
 export class Product {
        @PrimaryGeneratedColumn("uuid")
         id!: string;
-        @Column({type:"text"})
+        @Column({type:"text",nullable: true})
         productName!: string;
-        @Column({type: "float"})
+        @Column({type: "float",nullable: true})
         price!: number;
-        @Column({type: "int"})
+        @Column({type: "int",nullable: true})
         countSeal!: number;
-        @Column({type: "uuid"})
-        
-        provider!: string;
+       //@Column({type: "uuid", nullable: true})
+
+        //provider!: string;
    
 }

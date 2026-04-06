@@ -3,14 +3,10 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import {v4 as uuid} from 'uuid';
 import { empty, NotFoundError } from 'rxjs';
-<<<<<<< HEAD
-import { privateDecrypt } from 'crypto';
-=======
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { MESSAGES } from '@nestjs/core/constants';
->>>>>>> 8099e77 (All methods implemented)
 @Injectable()
 export class ProductsService {
   constructor(
@@ -38,20 +34,11 @@ export class ProductsService {
     countSeal: 9,
     provider:uuid(), 
   }
-<<<<<<< HEAD
-]
-  create(createProductDto: CreateProductDto) {
-    if(!createProductDto.id) createProductDto.id =uuid()
-    createProductDto.id = uuid();
-    this.products.push(createProductDto);
-    return createProductDto;
-=======
     ]
   async create(createProductDto: CreateProductDto) {
     const product = this.productRepository.save(createProductDto)
 
     return product;
->>>>>>> 8099e77 (All methods implemented)
   }
 
   findAll() {

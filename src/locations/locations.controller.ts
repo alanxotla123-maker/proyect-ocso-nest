@@ -5,6 +5,7 @@ import { UpdateLocationDto } from './dto/update-location.dto';
 
 @Controller('locations')
 export class LocationsController {
+  
   constructor(private readonly locationsService: LocationsService) {}
 
   @Post()

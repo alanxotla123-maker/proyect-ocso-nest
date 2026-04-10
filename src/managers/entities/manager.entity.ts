@@ -8,9 +8,10 @@ export class Manager {
     @Column('text')
     managerFullName! : string
     @Column('float')
-    managerSalary!: string
+    managerSalary!: number;
     @Column('text')
     managerEmail!: string;
     @Column('text')
     managerPhoneNumber!: string;
+    // RELACION CON LOCATIONS
 }

@@ -37,7 +37,9 @@ export class ManagersService {
     return this.managerRepository.save(managerToupdate)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} manager`;
+  remove(id: string) {
+    return this.managerRepository.delete({
+      managerId: id
+    })
   }
 }

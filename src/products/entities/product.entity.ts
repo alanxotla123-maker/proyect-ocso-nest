@@ -1,5 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm"
-import { isNull } from "util";
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from "typeorm"
+import { Provider } from "../../providers/entities/provider.entity";
 @Entity()
 export class Product {
        @PrimaryGeneratedColumn("uuid")
@@ -13,5 +13,9 @@ export class Product {
        //@Column({type: "uuid", nullable: true})
 
         //provider!: string;
+        @ManyToOne(() => Provider, (provider) => provider.products,{
+              //  eager: true,
+        } )
+        provider!: Provider
    
 }

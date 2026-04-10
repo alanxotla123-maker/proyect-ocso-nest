@@ -7,7 +7,7 @@
     "rootDir": "./src",
     
     /* ESTO ES LO QUE NECESITAS AHORA */
-    "types": ["node"], 
+    "types": ["node", "multer"], 
 
     "sourceMap": true,
     "declaration": true,

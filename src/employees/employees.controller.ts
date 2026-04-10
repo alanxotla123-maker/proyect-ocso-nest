@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { parse } from 'path';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { fileURLToPath } from 'url';
 
 @Controller('employees')
 export class EmployeesController {
@@ -12,7 +14,13 @@ export class EmployeesController {
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.employeesService.create(createEmployeeDto);
   }
+@Post('upload')
+@UseInterceptors(FileInterceptor('file'))
 
+uploadPhoto(@UploadedFile() file: Express.Multer.File){
+  console.log(file)
+  return "Ok"
+}
   @Get()
   findAll() {
     return this.employeesService.findAll();

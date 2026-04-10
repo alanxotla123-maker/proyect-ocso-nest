@@ -10,11 +10,9 @@ export class Product {
         price!: number;
         @Column({type: "int",nullable: true})
         countSeal!: number;
-       //@Column({type: "uuid", nullable: true})
 
-        //provider!: string;
         @ManyToOne(() => Provider, (provider) => provider.products,{
-              //  eager: true,
+              eager: true,
         } )
         provider!: Provider
    

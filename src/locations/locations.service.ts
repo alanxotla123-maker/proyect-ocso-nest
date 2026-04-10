@@ -4,9 +4,11 @@ import { UpdateLocationDto } from './dto/update-location.dto';
 import { Repository } from 'typeorm';
 import { NotFoundError } from 'rxjs';
 import { Location } from './entities/location.entity'; // Asegúrate de importar tu entidad
+import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class LocationsService {
   constructor(
+    @InjectRepository(Location)
     private locationRepository : Repository <Location>
   ){}
   create(createLocationDto: CreateLocationDto) {
@@ -24,12 +26,13 @@ export class LocationsService {
     if(!location) throw new NotFoundException("Locations not found")
   }
 
-  update(id: number, updateLocationDto: UpdateLocationDto) {
-    const location = this.locationRepository.preload({
+ async update(id: number, updateLocationDto: UpdateLocationDto) {
+    const locationUpdate =  await this.locationRepository.preload({
       locationId : id,
       ... updateLocationDto,
     })
-    return location
+    if(!locationUpdate) throw new NotFoundException()
+    return this.locationRepository.save(locationUpdate)
   }
 
   remove(id: number) {

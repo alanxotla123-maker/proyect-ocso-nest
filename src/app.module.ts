@@ -11,6 +11,9 @@ import { Provider } from './providers/entities/provider.entity';
 import { ManagersModule } from './managers/managers.module';
 import { LocationsModule } from './locations/locations.module';
 import { RegionsModule } from './regions/regions.module';
+import { Location } from './locations/entities/location.entity';
+import { Manager } from './managers/entities/manager.entity';
+import { Region } from './regions/entities/region.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({  
@@ -20,7 +23,7 @@ import { RegionsModule } from './regions/regions.module';
       username: 'postgres',     
       password: 'Salinas978',
       database: 'postgres',
-      entities: [Employee,Product,Provider], 
+      entities: [Employee,Product,Provider,Location,Manager,Region], 
       synchronize: true,
     })
   ,EmployeesModule, ProductsModule, ProvidersModule, ManagersModule, LocationsModule, RegionsModule],

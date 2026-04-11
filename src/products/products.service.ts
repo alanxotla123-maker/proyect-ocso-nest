@@ -29,6 +29,7 @@ export class ProductsService {
 
   }
 
+
   findOne(id: string) {
     const products = this.productRepository.findOneBy({ id });
     if(!products) throw new NotFoundException(`Producto with ID ${id} not found`);
@@ -37,7 +38,7 @@ export class ProductsService {
   }
   findByProvider(id: string){
      return this.productRepository.findBy({
-      provider: {
+      provider: { 
         providerId: id,
       }
      })

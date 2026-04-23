@@ -7,7 +7,14 @@ export class User {
     @PrimaryGeneratedColumn('uuid')
     userId!: string;
     @Column('text')
-    userEmail!: string;
+    userEmail!: string
+
+
     @Column('text')
-    userPassword!: string;
+    userPassword!: string
+
+    @Column('simple-array', {
+        default: ['Employee']
+    })
+    userRoles!: string[];
 }

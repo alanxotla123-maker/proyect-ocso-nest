@@ -16,17 +16,17 @@ import { Manager } from './managers/entities/manager.entity';
 import { Region } from './regions/entities/region.entity';
 import { AuthModule } from './auth/auth.module';
 import { User } from './auth/entities/user.entity';
-
 @Module({
   imports: [
-    TypeOrmModule.forRoot({  
+
+    TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',  
+      host: 'localhost',
       port: 5432,
-      username: 'postgres',     
+      username: 'postgres',
       password: 'Salinas978',
       database: 'postgres',
-      entities: [Employee,Product,Provider,Location,Manager,Region,User], 
+      entities: [Employee, Product, Provider, Location, Manager, Region, User],
       synchronize: true,
     }),
     EmployeesModule, ProductsModule, ProvidersModule, ManagersModule, LocationsModule, RegionsModule, AuthModule
@@ -34,4 +34,4 @@ import { User } from './auth/entities/user.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

@@ -8,6 +8,7 @@ import { UserData } from '../auth/decorators/user.decorator';
 import { User } from '../auth/entities/user.entity';
 import { Roles } from '../auth/decorators/roles.decoratror';
 import { RolesGuard } from '../auth/guards/roles.guard';
+import { Auth } from '../auth/decorators/auth.decorator';
 @UseGuards(AuthGuard)
 @Controller('providers')
 export class ProvidersController {
@@ -17,12 +18,11 @@ export class ProvidersController {
   create(@Body() createProviderDto: CreateProviderDto) {
     return this.providersService.create(createProviderDto);
   }
-  @Roles(["Admin"])
-  @UseGuards(AuthGuard, RolesGuard)
+  @Auth("Admin")
   @Get()
   findAll(@UserData() user: User) {
     console.log(user.userRoles)
-    if (!user.userRoles.some(role => ['Admin', 'Manager', 'admin', 'manager'].includes(role))) {
+    if (user.userRoles.includes("Employee")) {
       throw new UnauthorizedException("no estas autorizado solo admin y manager");
     }
     return this.providersService.findAll();

@@ -5,13 +5,24 @@ import { UpdateManagerDto } from './dto/update-manager.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { ROLES } from '../auth/constants/roles.constants';
 import { ApiAuth } from '../auth/decorators/api.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { Manager } from './entities/manager.entity';
 @ApiAuth()
 @ApiTags('Managers')
 @Controller('managers')
 export class ManagersController {
   constructor(private readonly managersService: ManagersService) { }
   @Auth(ROLES.ADMIN)
+  @ApiResponse({
+    status: 201,
+    example: {
+      managerId: "UUID",
+      managerFullName: "Pedro Paramo",
+      managerSalary: 12000,
+      managerEmail: "pedro@gmail.com",
+      managerPhoneNumber: "4422752025"
+    } as Manager
+  })
   @Post()
   create(@Body() createManagerDto: CreateManagerDto) {
     return this.managersService.create(createManagerDto);

@@ -3,21 +3,28 @@ import { ProvidersService } from './providers.service';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
 import { NotFoundError } from 'rxjs';
-import { AuthGuard } from '../auth/guards/auth.guard';
 import { UserData } from '../auth/decorators/user.decorator';
 import { User } from '../auth/entities/user.entity';
-import { Roles } from '../auth/decorators/roles.decoratror';
-import { RolesGuard } from '../auth/guards/roles.guard';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { ROLES } from '../auth/constants/roles.constants';
 import { ApiAuth } from '../auth/decorators/api.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { Provider } from './entities/provider.entity';
 @ApiAuth()
 @ApiTags('Providers')
 @Controller('providers')
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersService) { }
 
+  @ApiResponse({
+    status: 201,
+    example: {
+      providerId: "UUID",
+      providerName: "Coca Cola",
+      providerEmail: "contacto@cocacola.com",
+      providerPhoneNumber: "4422752025"
+    } as Provider
+  })
   @Post()
   create(@Body() createProviderDto: CreateProviderDto) {
     return this.providersService.create(createProviderDto);

@@ -7,13 +7,23 @@ import { parse } from 'path';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { ROLES } from '../auth/constants/roles.constants';
 import { ApiAuth } from '../auth/decorators/api.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { Product } from './entities/product.entity';
 @ApiAuth()
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) { }
   @Auth(ROLES.EMPLOYEE, ROLES.MANAGER)
+  @ApiResponse({
+    status: 201,
+    example: {
+      id: "UUID",
+      productName: "Gansito",
+      price: 20,
+      countSeal: 100
+    } as Product
+  })
   @Post()
   create(@Body(new ValidationPipe()) createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);

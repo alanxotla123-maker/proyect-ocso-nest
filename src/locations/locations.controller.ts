@@ -6,7 +6,8 @@ import { audit } from 'rxjs';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { ROLES } from '../auth/constants/roles.constants';
 import { ApiAuth } from '../auth/decorators/api.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { Location } from './entities/location.entity';
 @ApiAuth()
 @ApiTags('Locations')
 @Controller('locations')
@@ -14,6 +15,15 @@ export class LocationsController {
 
   constructor(private readonly locationsService: LocationsService) { }
   @Auth()
+  @ApiResponse({
+    status: 201,
+    example: {
+      locationId: 1,
+      locationName: "Sucursal Centro",
+      locationAddress: "Calle falsa 123",
+      locationLatLng: [12.34, -56.78]
+    } as Location
+  })
   @Post()
   create(@Body() createLocationDto: CreateLocationDto) {
     return this.locationsService.create(createLocationDto);

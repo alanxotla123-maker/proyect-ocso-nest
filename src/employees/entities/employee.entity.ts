@@ -1,28 +1,34 @@
-import { Collection, Column, Entity, PrimaryGeneratedColumn , ManyToOne, JoinColumn} from "typeorm";
+import { Collection, Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import { Location } from "../../locations/entities/location.entity";
+import { User } from "../../auth/entities/user.entity";
 
 @Entity('employee')
 export class Employee {
 
-@PrimaryGeneratedColumn('uuid')
-employeeId!: string;
-@Column('text')
-name!:string;
-@Column('text')
-lastName!: string;
-@Column('text')
-phoneNumber!: string;
-@Column('text')
-email!:string 
-@Column({
-    type:"text",
-    nullable:true
-})
-photoUrl!: string;
-@ManyToOne(() => Location, (location) => location.employee)
-@JoinColumn({
-    name: "locationId"
-})
-location! : Location;
+    @PrimaryGeneratedColumn('uuid')
+    employeeId!: string;
+    @Column('text')
+    name!: string;
+    @Column('text')
+    lastName!: string;
+    @Column('text')
+    phoneNumber!: string;
+    @Column('text')
+    email!: string
+    @Column({
+        type: "text",
+        nullable: true
+    })
+    photoUrl!: string;
+    @ManyToOne(() => Location, (location) => location.employee)
+    @JoinColumn({
+        name: "locationId"
+    })
+    location!: Location;
 
+    @OneToOne(() => User)
+    @JoinColumn({
+        name: "userId"
+    })
+    user!: User;
 }

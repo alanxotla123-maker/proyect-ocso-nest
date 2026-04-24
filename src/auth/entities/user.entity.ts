@@ -8,7 +8,7 @@ import { Employee } from "../../employees/entities/employee.entity";
 export class User {
     @PrimaryGeneratedColumn('uuid')
     userId!: string;
-    @Column('text')
+    @Column('text', { unique: true })
     userEmail!: string
 
 
@@ -20,14 +20,10 @@ export class User {
     })
     userRoles!: string[];
 
-    @OneToOne(() => Manager, {
-        eager: true
-    })
+    @OneToOne(() => Manager)
     manager!: Manager;
 
-    @OneToOne(() => Employee, {
-        eager: true
-    })
+    @OneToOne(() => Employee)
     employee!: Employee;
 
 

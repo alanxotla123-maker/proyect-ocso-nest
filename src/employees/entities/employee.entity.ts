@@ -8,7 +8,7 @@ export class Employee {
     @PrimaryGeneratedColumn('uuid')
     employeeId!: string;
     @Column('text')
-    employeName!: string;
+    employeeName!: string;
     @Column('text')
     employeeLastName!: string;
     @Column('text')

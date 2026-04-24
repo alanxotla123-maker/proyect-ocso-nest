@@ -7,6 +7,7 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import { JwtService } from '@nestjs/jwt';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -39,5 +40,14 @@ export class AuthService {
     }
     const token = this.jwtService.sign(payload)
     return token;
+  }
+  async updateUser(userEmail: string, updateUserDto: UpdateUserDto) {
+    const newUserData = await this.userRepository.preload({
+      userEmail,
+      ...updateUserDto
+    })
+    if (!newUserData) throw new NotFoundException("No se encontro el usuario")
+    this.userRepository.save(newUserData)
+    return newUserData;
   }
 }

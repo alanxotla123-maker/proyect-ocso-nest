@@ -11,8 +11,9 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { ROLES } from '../auth/constants/roles.constants';
 import { ApiAuth } from '../auth/decorators/api.decorator';
+import { ApiTags } from '@nestjs/swagger';
 @ApiAuth()
-@UseGuards(AuthGuard)
+@ApiTags('Providers')
 @Controller('providers')
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersService) { }

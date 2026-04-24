@@ -6,7 +6,9 @@ import { audit } from 'rxjs';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { ROLES } from '../auth/constants/roles.constants';
 import { ApiAuth } from '../auth/decorators/api.decorator';
+import { ApiTags } from '@nestjs/swagger';
 @ApiAuth()
+@ApiTags('Locations')
 @Controller('locations')
 export class LocationsController {
 

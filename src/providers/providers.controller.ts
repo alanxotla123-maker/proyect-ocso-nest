@@ -9,6 +9,7 @@ import { User } from '../auth/entities/user.entity';
 import { Roles } from '../auth/decorators/roles.decoratror';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Auth } from '../auth/decorators/auth.decorator';
+import { ROLES } from '../auth/constants/roles.constants';
 @UseGuards(AuthGuard)
 @Controller('providers')
 export class ProvidersController {
@@ -18,7 +19,7 @@ export class ProvidersController {
   create(@Body() createProviderDto: CreateProviderDto) {
     return this.providersService.create(createProviderDto);
   }
-  @Auth("Admin")
+  @Auth(ROLES.EMPLOYEE, ROLES.MANAGER)
   @Get()
   findAll(@UserData() user: User) {
     console.log(user.userRoles)
@@ -27,22 +28,25 @@ export class ProvidersController {
     }
     return this.providersService.findAll();
   }
+
+  @Auth(ROLES.EMPLOYEE, ROLES.MANAGER)
   @Get('/name/:name')
   findByName(@Param('name') name: string) {
     return this.providersService.findOneByName(name);
   }
+  @Auth(ROLES.EMPLOYEE, ROLES.MANAGER)
   @Get(':id')
   findOne(@Param('id') id: string) {
     const provaider = this.providersService.findOne(id)
     if (!provaider) throw new NotFoundException;
     return provaider
   }
-
+  @Auth(ROLES.MANAGER)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProviderDto: UpdateProviderDto) {
     return this.providersService.update(id, updateProviderDto);
   }
-
+  @Auth(ROLES.MANAGER)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.providersService.remove(id);

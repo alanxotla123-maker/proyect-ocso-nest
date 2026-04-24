@@ -10,6 +10,8 @@ import { Roles } from '../auth/decorators/roles.decoratror';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { ROLES } from '../auth/constants/roles.constants';
+import { ApiAuth } from '../auth/decorators/api.decorator';
+@ApiAuth()
 @UseGuards(AuthGuard)
 @Controller('providers')
 export class ProvidersController {

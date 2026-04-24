@@ -5,7 +5,8 @@ import { UpdateManagerDto } from './dto/update-manager.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { Roles } from '../auth/decorators/roles.decoratror';
 import { ROLES } from '../auth/constants/roles.constants';
-
+import { ApiAuth } from '../auth/decorators/api.decorator';
+@ApiAuth()
 @Controller('managers')
 export class ManagersController {
   constructor(private readonly managersService: ManagersService) { }

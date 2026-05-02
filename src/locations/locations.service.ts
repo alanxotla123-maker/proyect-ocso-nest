@@ -9,8 +9,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class LocationsService {
   constructor(
     @InjectRepository(Location)
-    private locationRepository : Repository <Location>
-  ){}
+    private locationRepository: Repository<Location>
+  ) { }
   create(createLocationDto: CreateLocationDto) {
     return this.locationRepository.save(createLocationDto);
   }
@@ -20,18 +20,19 @@ export class LocationsService {
   }
 
   findOne(id: number) {
-    const  location = this.locationRepository.findOneBy({
-        locationId : id,
+    const location = this.locationRepository.findOneBy({
+      locationId: id,
     })
-    if(!location) throw new NotFoundException("Locations not found")
+    if (!location) throw new NotFoundException("Locations not found")
+    return location;
   }
 
- async update(id: number, updateLocationDto: UpdateLocationDto) {
-    const locationUpdate =  await this.locationRepository.preload({
-      locationId : id,
-      ... updateLocationDto,
+  async update(id: number, updateLocationDto: UpdateLocationDto) {
+    const locationUpdate = await this.locationRepository.preload({
+      locationId: id,
+      ...updateLocationDto,
     })
-    if(!locationUpdate) throw new NotFoundException()
+    if (!locationUpdate) throw new NotFoundException()
     return this.locationRepository.save(locationUpdate)
   }
 

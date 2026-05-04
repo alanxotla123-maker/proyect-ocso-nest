@@ -1,46 +1,48 @@
-import { Injectable , NotFoundException} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository,Like } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { Provider } from './entities/provider.entity';
 import { Product } from '../products/entities/product.entity';
 
 @Injectable()
 
 export class ProvidersService {
-constructor(
-  @InjectRepository(Provider)
-  private providerRepository: Repository<Provider>
-){}
+  constructor(
+    @InjectRepository(Provider)
+    private providerRepository: Repository<Provider>
+  ) { }
 
   create(createProviderDto: CreateProviderDto) {
     return this.providerRepository.save(createProviderDto)
   }
 
   findAll() {
-  return this.providerRepository.find()  
+    return this.providerRepository.find()
   }
 
-  findOne(id: string) {
-    return this.providerRepository.findOneBy({
+  async findOne(id: string) {
+    const provider = await this.providerRepository.findOneBy({
       providerId: id
     })
+    if (!provider) throw new NotFoundException()
+    return provider;
   }
-  findOneByName(name: string){
+  findOneByName(name: string) {
     const provider = this.providerRepository.findBy({
       providerName: Like(`%${name}%`)
     })
-    if(!provider) throw new NotFoundException()
-      return provider;
+    if (!provider) throw new NotFoundException()
+    return provider;
   }
- async update(id: string, updateProviderDto: UpdateProviderDto) {
-  const product = await this.providerRepository.preload({
-    providerId: id,
-    ... updateProviderDto
-  })
-  if (!product) throw new NotFoundException
-  return this.providerRepository.save(product);
+  async update(id: string, updateProviderDto: UpdateProviderDto) {
+    const product = await this.providerRepository.preload({
+      providerId: id,
+      ...updateProviderDto
+    })
+    if (!product) throw new NotFoundException
+    return this.providerRepository.save(product);
   }
 
   remove(id: string) {

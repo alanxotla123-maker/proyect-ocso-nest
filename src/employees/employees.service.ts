@@ -22,10 +22,11 @@ export class EmployeesService {
     return this.employeeRepository.find();
   }
 
-  findOne(id: string) {
-    const employee = this.employeeRepository.findOneBy({
+  async findOne(id: string) {
+    const employee = await this.employeeRepository.findOneBy({
       employeeId: id
     })
+    if (!employee) throw new NotFoundException(`Employee with ID ${id} not found`);
     return employee;
   }
   async findByLocation(id: number) {

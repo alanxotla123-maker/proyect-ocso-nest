@@ -25,7 +25,9 @@ export class Location {
     })
     @Column('simple-array')
     locationLatLng!: number[]
-
+    @ApiProperty({
+        default: "Manager Name"
+    })
     @OneToOne(() => Manager, {
         eager: true,
     })
@@ -33,7 +35,7 @@ export class Location {
         name: "mangerId"
     })
 
-    manager!: Manager
+    manager!: Manager | string;
     @ManyToOne(() => Region, (region) => region.locations)
     @JoinColumn({
         name: "regionId"

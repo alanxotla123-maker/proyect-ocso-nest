@@ -11,29 +11,29 @@ export class ManagersService {
   constructor(
     @InjectRepository(Manager)
     private managerRepository: Repository<Manager>
-  ){}
+  ) { }
   create(createManagerDto: CreateManagerDto) {
-     return this.managerRepository.save(createManagerDto);
+    return this.managerRepository.save(createManagerDto);
   }
 
   findAll() {
-  return this.managerRepository.find()
+    return this.managerRepository.find()
   }
 
-  findOne(id: string) {
-    const manager = this.managerRepository.findOneBy( {
+  async findOne(id: string) {
+    const manager = await this.managerRepository.findOneBy({
       managerId: id
     });
-    if(!manager) throw new NotFoundException()
-      return manager
+    if (!manager) throw new NotFoundException()
+    return manager
   }
 
- async update(id: string, updateManagerDto: UpdateManagerDto) {
-    const managerToupdate =  await this.managerRepository.preload({
+  async update(id: string, updateManagerDto: UpdateManagerDto) {
+    const managerToupdate = await this.managerRepository.preload({
       managerId: id,
-      ... updateManagerDto
+      ...updateManagerDto
     })
-    if(!managerToupdate) throw new NotFoundException()
+    if (!managerToupdate) throw new NotFoundException()
     return this.managerRepository.save(managerToupdate)
   }
 

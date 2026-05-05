@@ -20,7 +20,7 @@ export class CreateManagerDto extends Manager {
     @MaxLength(16)
     declare managerPhoneNumber: string;
     @ApiPropertyOptional()
-    @IsObject()
+    @IsNumber()
     @IsOptional()
     declare location: Location
 

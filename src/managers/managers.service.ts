@@ -4,7 +4,6 @@ import { UpdateManagerDto } from './dto/update-manager.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Manager } from './entities/manager.entity';
 import { Repository } from 'typeorm';
-import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class ManagersService {
@@ -17,12 +16,19 @@ export class ManagersService {
   }
 
   findAll() {
-    return this.managerRepository.find()
+    return this.managerRepository.find({
+      relations: {
+        location: true,
+      }
+    })
   }
 
   async findOne(id: string) {
-    const manager = await this.managerRepository.findOneBy({
-      managerId: id
+    const manager = await this.managerRepository.findOne({
+      where: { managerId: id },
+      relations: {
+        location: true
+      }
     });
     if (!manager) throw new NotFoundException()
     return manager
